@@ -5,9 +5,7 @@
     <div class="absolute inset-0 z-0 bg-black bg-opacity-50"></div>
 
     <div class="relative z-10 w-[35%] rounded-md bg-black bg-opacity-75 p-10">
-      <h1 class="mb-6 text-center text-3xl font-bold text-[#e50914]">
-        WATCHLIST
-      </h1>
+      <h1 class="mb-6 text-center text-3xl font-bold text-[#e50914]">S</h1>
       <p class="mb-4 text-xl font-bold text-white">Register</p>
       <form class="flex w-full flex-col gap-4">
         <input

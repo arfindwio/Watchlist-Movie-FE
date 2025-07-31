@@ -6,7 +6,7 @@
 
     <div class="relative z-10 w-[35%] rounded-md bg-black bg-opacity-75 p-10">
       <h1 class="mb-6 text-center text-3xl font-bold text-[#e50914]">
-        WATCHLIST
+        WATCHLISTS
       </h1>
       <p class="mb-4 text-xl font-bold text-white">Login</p>
       <form class="flex w-full flex-col gap-4">
