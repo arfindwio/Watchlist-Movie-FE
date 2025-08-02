@@ -37,7 +37,8 @@ import Footer from "../components/footer/Footer.vue";
 
         <section class="flex flex-col gap-6 pt-16">
           <h5 class="text-3xl font-bold text-white">Watchlist Movies</h5>
-          <div class="grid grid-cols-5 gap-8">
+          <div class="grid grid-cols-6 gap-8">
+            <MovieCard />
             <MovieCard />
             <MovieCard />
             <MovieCard />
@@ -48,7 +49,8 @@ import Footer from "../components/footer/Footer.vue";
 
         <section class="flex flex-col gap-6 py-16">
           <h5 class="text-3xl font-bold text-white">Watched Movies</h5>
-          <div class="grid grid-cols-5 gap-8">
+          <div class="grid grid-cols-6 gap-8">
+            <MovieCard />
             <MovieCard />
             <MovieCard />
             <MovieCard />

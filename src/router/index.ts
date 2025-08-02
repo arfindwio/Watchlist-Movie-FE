@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Watchlist from "../views/Watchlist.vue";
 import Watched from "../views/Watched.vue";
+import Movies from "../views/Movies.vue";
 import MovieDetail from "../views/MovieDetail.vue";
 
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
   { path: "/register", name: "Register", component: Register },
   { path: "/watchlist", name: "Watchlist Movie", component: Watchlist },
   { path: "/watched", name: "Watched Movie", component: Watched },
+  { path: "/movies", name: "Search Movies", component: Movies },
   { path: "/movie-detail", name: "Movie Detail", component: MovieDetail },
 ];
 
