@@ -14,7 +14,7 @@ import Footer from "../components/footer/Footer.vue";
     <div class="ml-[20%] w-[80%] bg-slate-900">
       <div class="mx-auto w-full max-w-7xl p-10 pb-4">
         <section
-          class="flex w-full flex-col gap-8 rounded-md border bg-slate-700 p-4 text-[#e50914]"
+          class="flex w-full flex-col gap-8 rounded-md border border-[#A41B1B] bg-slate-700 p-4 text-[#e50914]"
         >
           <h1 class="text-5xl font-semibold text-white">
             Welcome to <span class="text-[#e50914]">Watchlists</span>

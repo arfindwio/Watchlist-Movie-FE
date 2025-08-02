@@ -36,7 +36,7 @@ import { Icon } from "@iconify/vue";
         </router-link>
       </ul>
       <button
-        class="flex w-full items-center justify-center gap-1 rounded bg-[#e50914] px-3 py-2 text-center text-base font-semibold text-black"
+        class="flex w-full items-center justify-center gap-1 rounded bg-[#F33F3F] px-3 py-2 text-center text-base font-semibold text-black hover:bg-red-600"
       >
         <Icon icon="mdi:movie-plus" width="24" height="24" />
         Create Whitelist
