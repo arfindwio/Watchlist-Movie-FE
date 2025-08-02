@@ -6,6 +6,7 @@ import Watchlist from "../views/Watchlist.vue";
 import Watched from "../views/Watched.vue";
 import Movies from "../views/Movies.vue";
 import MovieDetail from "../views/MovieDetail.vue";
+import UserProfile from "../views/UserProfile.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -15,6 +16,7 @@ const routes = [
   { path: "/watched", name: "Watched Movie", component: Watched },
   { path: "/movies", name: "Search Movies", component: Movies },
   { path: "/movie-detail", name: "Movie Detail", component: MovieDetail },
+  { path: "/profile", name: "User Profile", component: UserProfile },
 ];
 
 const router = createRouter({
