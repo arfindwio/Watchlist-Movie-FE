@@ -13,7 +13,7 @@ import Footer from "../components/footer/Footer.vue";
     <SideBar />
     <div class="ml-[20%] w-[80%] bg-slate-900">
       <div class="mx-auto w-full max-w-7xl p-10 pb-4">
-        <section class="flex flex-col gap-6 py-10">
+        <section class="flex flex-col gap-6 pb-10">
           <h5 class="text-3xl font-bold text-white">Watchlist Movies</h5>
           <div class="grid grid-cols-5 gap-8">
             <MovieCard />
