@@ -12,7 +12,7 @@ import { Icon } from "@iconify/vue";
           <h5 class="text-xl font-bold text-white">Contact Us</h5>
           <ul class="flex w-full gap-2">
             <a
-              href="https://www.arfin-portfolio.vercel.app/"
+              href="https://arfin-portfolio.vercel.app/"
               class="w-fit rounded-lg bg-slate-300 p-1 text-slate-800"
             >
               <Icon icon="mdi:web" width="30" height="30" />
