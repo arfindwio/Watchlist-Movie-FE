@@ -7,6 +7,7 @@ import Watched from "../views/Watched.vue";
 import Movies from "../views/Movies.vue";
 import MovieDetail from "../views/MovieDetail.vue";
 import UserProfile from "../views/UserProfile.vue";
+import UserChangePassword from "../views/UserChangePassword.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -17,6 +18,11 @@ const routes = [
   { path: "/movies", name: "Search Movies", component: Movies },
   { path: "/movie-detail", name: "Movie Detail", component: MovieDetail },
   { path: "/profile", name: "User Profile", component: UserProfile },
+  {
+    path: "/change-password",
+    name: "User Change Password",
+    component: UserChangePassword,
+  },
 ];
 
 const router = createRouter({
