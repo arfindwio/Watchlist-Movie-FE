@@ -4,12 +4,18 @@
   >
     <div class="absolute inset-0 z-0 bg-black bg-opacity-50"></div>
 
-    <div class="relative z-10 w-[35%] rounded-md bg-black bg-opacity-75 p-10">
+    <div
+      class="relative z-10 flex h-screen w-full flex-col justify-center rounded-md bg-black bg-opacity-75 p-10 sm:h-auto sm:w-[45%] md:w-[40%] lg:w-[35%]"
+    >
       <h1 class="mb-6 text-center text-3xl font-bold text-[#e50914]">
         WATCHLISTS
       </h1>
-      <p class="mb-4 text-xl font-bold text-white">Login</p>
-      <form class="flex w-full flex-col gap-4">
+      <div class="mb-4 w-full">
+        <p class="mx-auto max-w-60 text-xl font-bold text-white sm:max-w-none">
+          Login
+        </p>
+      </div>
+      <form class="mx-auto flex w-full max-w-60 flex-col gap-4 sm:max-w-none">
         <input
           type="email"
           name="email"
