@@ -9,76 +9,84 @@ import Footer from "../components/footer/Footer.vue";
 </script>
 
 <template>
-  <div class="flex min-h-screen w-full">
-    <SideBar />
-    <div class="ml-[20%] w-[80%] bg-slate-900">
-      <div class="mx-auto w-full max-w-7xl p-10 pb-4">
-        <section class="flex flex-col gap-6 pb-10">
-          <h5 class="text-3xl font-bold text-white">Watched Movies</h5>
-          <div class="grid grid-cols-5 gap-8">
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-          </div>
-        </section>
+  <SideBar />
+  <div
+    class="min-h-screen w-full bg-slate-900 pt-20 sm:pl-20 sm:pt-0 md:ml-[20%] md:w-[80%] md:pl-0"
+  >
+    <div class="mx-auto w-full max-w-7xl px-4 pb-4 sm:p-6 lg:p-10">
+      <section class="flex flex-col gap-3 sm:gap-6">
+        <h5 class="text-xl font-bold text-white sm:text-3xl">Watched Movies</h5>
+        <div
+          class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4 md:gap-7 lg:grid-cols-5 lg:gap-8"
+        >
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+        </div>
+      </section>
 
-        <section class="flex items-center justify-between pb-16">
-          <p
-            class="flex items-center gap-2 text-base font-normal text-slate-300"
+      <section
+        class="flex flex-col justify-center gap-3 pb-10 pt-4 lg:flex-row lg:justify-between lg:gap-6 lg:pb-16"
+      >
+        <p
+          class="flex items-center justify-center gap-2 text-base font-normal text-slate-300"
+        >
+          Item per page
+          <select class="border border-slate-600 bg-transparent text-base">
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          of 200
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-1 sm:gap-4">
+          <button
+            class="flex scale-90 items-center gap-2 text-slate-300 sm:scale-100"
           >
-            Item per page
-            <select class="border border-slate-600 bg-transparent text-base">
-              <option value="15">15</option>
-              <option value="20">20</option>
-            </select>
-            of 200
+            <Icon icon="si:arrow-left-duotone" width="30" height="30" />
+            Previous
+          </button>
+          <button
+            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
+          >
+            1
+          </button>
+          <p
+            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
+          >
+            ...
           </p>
-          <div class="flex items-center gap-4">
-            <button class="flex items-center gap-2 text-slate-300">
-              <Icon icon="si:arrow-left-duotone" width="30" height="30" />
-              Previous
-            </button>
-            <button
-              class="rounded-lg bg-slate-500 bg-opacity-70 px-4 py-2 text-base font-medium text-white"
-            >
-              1
-            </button>
-            <button
-              class="rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35"
-            >
-              2
-            </button>
-            <p
-              class="rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35"
-            >
-              ...
-            </p>
-            <button
-              class="rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35"
-            >
-              8
-            </button>
-            <button
-              class="rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35"
-            >
-              9
-            </button>
-            <button class="flex items-center gap-2 text-slate-300">
-              Next
-              <Icon icon="si:arrow-right-duotone" width="30" height="30" />
-            </button>
-          </div>
-        </section>
+          <button
+            class="scale-90 rounded-lg bg-slate-500 bg-opacity-70 px-4 py-2 text-base font-medium text-white sm:scale-100"
+          >
+            3
+          </button>
+          <p
+            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
+          >
+            ...
+          </p>
+          <button
+            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
+          >
+            9
+          </button>
+          <button
+            class="flex scale-90 items-center gap-2 text-slate-300 sm:scale-100"
+          >
+            Next
+            <Icon icon="si:arrow-right-duotone" width="30" height="30" />
+          </button>
+        </div>
+      </section>
 
-        <Footer />
-      </div>
+      <Footer />
     </div>
   </div>
 </template>

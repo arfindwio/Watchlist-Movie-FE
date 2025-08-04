@@ -5,9 +5,11 @@ import { Icon } from "@iconify/vue";
 
 <template>
   <footer class="flex flex-col gap-2">
-    <div class="grid grid-cols-3 gap-6 py-4">
-      <div class="col-span-1 flex flex-col gap-6">
-        <h4 class="text-3xl font-bold text-[#e50914]">WATCHLISTS</h4>
+    <div class="grid grid-cols-1 gap-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <div class="col-span-1 flex flex-col gap-2 sm:gap-4 lg:gap-6">
+        <h4 class="text-3xl font-bold text-[#e50914] sm:text-2xl lg:text-3xl">
+          WATCHLISTS
+        </h4>
         <div class="flex flex-col gap-2">
           <h5 class="text-xl font-bold text-white">Contact Us</h5>
           <ul class="flex w-full gap-2">
@@ -32,9 +34,9 @@ import { Icon } from "@iconify/vue";
           </ul>
         </div>
       </div>
-      <div class="col-span-1 flex flex-col gap-4">
+      <div class="col-span-1 flex flex-col gap-2 sm:gap-4">
         <h5 class="text-xl font-bold text-white">Explore</h5>
-        <ul class="flex w-full flex-col gap-2">
+        <ul class="flex w-full flex-col gap-1 sm:gap-2">
           <router-link
             to="/home"
             class="text-base text-slate-200 hover:text-white"
@@ -55,9 +57,9 @@ import { Icon } from "@iconify/vue";
           </router-link>
         </ul>
       </div>
-      <div class="col-span-1 flex flex-col gap-4">
+      <div class="col-span-1 flex flex-col gap-2 sm:gap-4">
         <h5 class="text-xl font-bold text-white">Help</h5>
-        <ul class="flex w-full flex-col gap-2">
+        <ul class="flex w-full flex-col gap-1 sm:gap-2">
           <li class="text-base font-normal text-slate-200">Contact Us</li>
           <li class="text-base font-normal text-slate-200">Policy Report</li>
           <li class="text-base font-normal text-slate-200">Policies</li>
@@ -65,7 +67,7 @@ import { Icon } from "@iconify/vue";
       </div>
     </div>
     <div class="border-t border-slate-500 pt-4 text-center">
-      <p class="w-full text-base font-semibold text-white">
+      <p class="w-full text-sm font-semibold text-white sm:text-base">
         © 2025 arfindwio. All Rights Reserved.
       </p>
     </div>
