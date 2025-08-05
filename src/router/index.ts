@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+
+// Views
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
@@ -28,6 +30,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem("token");
+  const publicPages = ["/login", "/register"];
+  const authRequired = !publicPages.includes(to.path);
+
+  if (authRequired && !token) {
+    return next("/login");
+  }
+
+  next();
 });
 
 export default router;
