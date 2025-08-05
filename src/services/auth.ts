@@ -1,0 +1,19 @@
+// Axios
+import api from "../lib/axios";
+
+// Types
+import type {
+  LoginPayload,
+  LoginResponse,
+  ProfileResponse,
+} from "../types/auth";
+
+export async function login(payload: LoginPayload): Promise<LoginResponse> {
+  const res = await api.post("/login", payload);
+  return res.data;
+}
+
+export async function fetchProfile(): Promise<ProfileResponse> {
+  const res = await api.get<ProfileResponse>("/authenticate");
+  return res.data;
+}
