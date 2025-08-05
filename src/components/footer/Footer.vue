@@ -4,7 +4,7 @@ import { Icon } from "@iconify/vue";
 </script>
 
 <template>
-  <footer class="flex flex-col gap-2">
+  <footer class="flex flex-col gap-2 pt-10 lg:pt-16">
     <div class="grid grid-cols-1 gap-6 py-4 sm:grid-cols-3 sm:gap-4">
       <div class="col-span-1 flex flex-col gap-2 sm:gap-4 lg:gap-6">
         <h4 class="text-3xl font-bold text-[#e50914] sm:text-2xl lg:text-3xl">
@@ -37,20 +37,17 @@ import { Icon } from "@iconify/vue";
       <div class="col-span-1 flex flex-col gap-2 sm:gap-4">
         <h5 class="text-xl font-bold text-white">Explore</h5>
         <ul class="flex w-full flex-col gap-1 sm:gap-2">
-          <router-link
-            to="/home"
-            class="text-base text-slate-200 hover:text-white"
-          >
+          <router-link to="/" class="text-base text-slate-200 hover:text-white">
             Home
           </router-link>
           <router-link
-            to="/home"
+            to="/watchlist"
             class="text-base text-slate-200 hover:text-white"
           >
             Watchlist
           </router-link>
           <router-link
-            to="/home"
+            to="/watched"
             class="text-base text-slate-200 hover:text-white"
           >
             Watched

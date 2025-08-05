@@ -1,11 +1,25 @@
 <script lang="ts" setup>
+import { onMounted, computed } from "vue";
+
+// Stores
+import { useMoviesStore } from "../stores/movies";
+
 // Icons
 import { Icon } from "@iconify/vue";
 
-// Images
+// Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import MovieCard from "../components/card/MovieCard.vue";
 import Footer from "../components/footer/Footer.vue";
+
+const moviesStore = useMoviesStore();
+
+const watched = computed(() => moviesStore.watched);
+const unwatched = computed(() => moviesStore.unwatched);
+
+onMounted(() => {
+  moviesStore.fetchMovies();
+});
 </script>
 
 <template>
@@ -42,51 +56,77 @@ import Footer from "../components/footer/Footer.vue";
         </div>
       </section>
 
-      <section class="flex flex-col gap-3 pt-10 sm:gap-6 lg:pt-16">
+      <section
+        class="flex flex-col items-center justify-center gap-3 pb-6 pt-10 sm:gap-6 sm:pb-10 sm:pt-16 md:gap-10 lg:pb-16 lg:pt-20"
+        v-if="watched.length === 0 && unwatched.length === 0"
+      >
+        <Icon
+          icon="streamline-kameleon-color:movie-film"
+          width="100"
+          height="100"
+          class="scale-100 sm:scale-125 md:scale-150"
+        />
+        <div class="flex flex-col text-center">
+          <h5
+            class="text-lg font-bold text-[#e50914] sm:text-xl md:text-2xl lg:text-3xl"
+          >
+            Your watchlist is empty.
+          </h5>
+          <p
+            class="text-base font-medium text-white sm:text-lg md:text-xl lg:text-2xl"
+          >
+            Start adding movies you want to watch!
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="flex flex-col gap-3 pt-10 sm:gap-6 lg:pt-16"
+        v-if="unwatched.length > 0"
+      >
         <div class="flex items-center justify-between">
           <h5 class="text-xl font-bold text-white sm:text-3xl">
             Watchlist Movies
           </h5>
 
-          <button
+          <router-link
+            to="/watchlist"
             class="h-fit rounded-sm bg-[#F33F3F] px-3 py-1 text-xs font-bold text-black sm:text-sm"
           >
             See All
-          </button>
+          </router-link>
         </div>
         <div
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 xl:grid-cols-6 xl:gap-8"
         >
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+          <MovieCard
+            v-for="movie in unwatched.slice(0, 8)"
+            :key="movie.id"
+            :movie="movie"
+          />
         </div>
       </section>
 
-      <section class="flex flex-col gap-3 py-10 sm:gap-6 lg:py-16">
+      <section
+        class="flex flex-col gap-3 pt-10 sm:gap-6 lg:pt-16"
+        v-if="watched.length > 0"
+      >
         <div class="flex items-center justify-between">
           <h5 class="text-xl font-bold text-white sm:text-3xl">
             Watched Movies
           </h5>
 
-          <button
+          <router-link
+            to="/watched"
             class="h-fit rounded-sm bg-[#F33F3F] px-3 py-1 text-xs font-bold text-black sm:text-sm"
           >
             See All
-          </button>
+          </router-link>
         </div>
         <div
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 xl:grid-cols-6 xl:gap-8"
         >
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+          <MovieCard v-for="movie in watched" :key="movie.id" :movie="movie" />
         </div>
       </section>
 

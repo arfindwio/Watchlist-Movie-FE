@@ -1,6 +1,39 @@
 <script lang="ts" setup>
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import { useRoute } from "vue-router";
+
 // Icons
 import { Icon } from "@iconify/vue";
+
+// Stores
+import { useAuthStore } from "../../stores/auth";
+
+// Images
+import defaultPhoto from "../../assets/images/photo-profile.png";
+
+const route = useRoute();
+const authStore = useAuthStore();
+
+const user = computed(() => authStore.user);
+const isActiveHome = computed(() => route.path === "/");
+const isActiveWatchlist = computed(() => route.path === "/watchlist");
+const isActiveWatched = computed(() => route.path === "/watched");
+
+const windowWidth = ref(window.innerWidth);
+const isBetween640and767 = () =>
+  windowWidth.value >= 640 && windowWidth.value <= 767;
+
+function updateWidth() {
+  windowWidth.value = window.innerWidth;
+}
+
+onMounted(() => {
+  window.addEventListener("resize", updateWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWidth);
+});
 </script>
 
 <template>
@@ -34,27 +67,45 @@ import { Icon } from "@iconify/vue";
       <ul
         class="flex w-full flex-col items-center gap-2 md:items-start md:gap-3"
       >
-        <router-link
+        <component
+          :is="isBetween640and767() ? 'div' : 'router-link'"
           to="/"
-          class="flex w-fit gap-2 rounded bg-slate-500 bg-opacity-70 px-2 py-[6px] text-base text-white md:w-full md:px-3 md:py-2"
+          :class="[
+            isActiveHome
+              ? 'bg-slate-500 bg-opacity-70'
+              : 'hover:bg-slate-500 hover:bg-opacity-35',
+            'flex w-fit gap-2 rounded px-2 py-[6px] text-base text-white md:w-full md:px-3 md:py-2',
+          ]"
         >
           <Icon icon="bx:home" width="24" height="24" />
           <p class="hidden md:block">Home</p>
-        </router-link>
-        <router-link
+        </component>
+        <component
+          :is="isBetween640and767() ? 'div' : 'router-link'"
           to="/watchlist"
-          class="flex w-fit gap-2 rounded px-2 py-[6px] text-base text-white hover:bg-slate-500 hover:bg-opacity-35 md:w-full md:px-3 md:py-2"
+          :class="[
+            isActiveWatchlist
+              ? 'bg-slate-500 bg-opacity-70'
+              : 'hover:bg-slate-500 hover:bg-opacity-35',
+            'flex w-fit gap-2 rounded px-2 py-[6px] text-base text-white md:w-full md:px-3 md:py-2',
+          ]"
         >
           <Icon icon="mdi:movie-star" width="24" height="24" />
           <p class="hidden md:block">Watchlist</p>
-        </router-link>
-        <router-link
+        </component>
+        <component
+          :is="isBetween640and767() ? 'div' : 'router-link'"
           to="/watched"
-          class="flex w-fit gap-2 rounded px-2 py-[6px] text-base text-white hover:bg-slate-500 hover:bg-opacity-35 md:w-full md:px-3 md:py-2"
+          :class="[
+            isActiveWatched
+              ? 'bg-slate-500 bg-opacity-70'
+              : 'hover:bg-slate-500 hover:bg-opacity-35',
+            'flex w-fit gap-2 rounded px-2 py-[6px] text-base text-white md:w-full md:px-3 md:py-2',
+          ]"
         >
           <Icon icon="mdi:movie-check" width="24" height="24" />
           <p class="hidden md:block">Watched</p>
-        </router-link>
+        </component>
       </ul>
       <button
         class="flex w-fit items-center justify-center gap-1 rounded bg-[#F33F3F] px-1 py-1 text-base font-semibold text-black hover:bg-red-600 md:w-full md:px-3 md:py-2"
@@ -68,14 +119,18 @@ import { Icon } from "@iconify/vue";
         <p class="hidden text-sm font-bold md:block">Create Whitelist</p>
       </button>
 
-      <button
+      <router-link
+        to="/profile"
         class="absolute bottom-5 flex w-fit items-center gap-3 truncate rounded border border-white bg-transparent px-2 py-2 text-start text-base uppercase text-slate-300 md:w-full md:px-3 md:py-2"
       >
-        <p class="rounded-full bg-white p-1 text-black">
-          <Icon icon="ri:user-line" width="22" height="22" />
-        </p>
-        <p class="hidden md:block">Guest</p>
-      </button>
+        <img
+          :src="user?.photo ?? defaultPhoto"
+          loading="lazy"
+          alt="Photo Profile"
+          class="h-8 w-8"
+        />
+        <p class="hidden md:block">{{ user?.name }}</p>
+      </router-link>
     </div>
   </div>
 
