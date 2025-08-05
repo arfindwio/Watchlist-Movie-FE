@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+
+// Stores
+import { useMoviesStore } from "../stores/movies";
+
 // Icons
 import { Icon } from "@iconify/vue";
 
@@ -6,6 +11,10 @@ import { Icon } from "@iconify/vue";
 import SideBar from "../components/sidebar/SideBar.vue";
 import MovieCard from "../components/card/MovieCard.vue";
 import Footer from "../components/footer/Footer.vue";
+
+const moviesStore = useMoviesStore();
+
+const unwatched = computed(() => moviesStore.unwatched);
 </script>
 
 <template>
@@ -20,22 +29,19 @@ import Footer from "../components/footer/Footer.vue";
         </h5>
         <div
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4 md:gap-7 lg:grid-cols-5 lg:gap-8"
+          v-if="unwatched.length > 0"
         >
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+          <MovieCard
+            v-for="movie in unwatched"
+            :key="movie.id"
+            :movie="movie"
+          />
         </div>
       </section>
 
       <section
         class="flex flex-col justify-center gap-3 pb-10 pt-4 lg:flex-row lg:justify-between lg:gap-6 lg:pb-16"
+        v-if="unwatched.length > 0"
       >
         <p
           class="flex items-center justify-center gap-2 text-base font-normal text-slate-300"

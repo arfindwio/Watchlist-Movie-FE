@@ -56,6 +56,7 @@ const handleLogin = async () => {
           type="email"
           name="email"
           placeholder="Email"
+          autocomplete="username"
           class="focus:border-1 w-full rounded-md border-2 border-slate-500 bg-transparent px-4 py-3 text-sm text-white placeholder:text-slate-300 focus:border-white"
           v-model="email"
         />
@@ -69,7 +70,7 @@ const handleLogin = async () => {
         />
         <button
           type="submit"
-          class="rounded-md bg-[#e50914] py-2 text-center text-base font-semibold text-white"
+          class="rounded-md bg-[#e50914] py-2 text-center text-base font-semibold text-white hover:bg-red-700"
           :disabled="auth.loading"
         >
           Login
@@ -77,7 +78,7 @@ const handleLogin = async () => {
         <p class="text-center font-normal text-slate-400">ATAU</p>
         <router-link
           to="/register"
-          class="rounded-md bg-slate-600 bg-opacity-60 py-2 text-center text-base font-semibold text-white"
+          class="rounded-md bg-slate-600 bg-opacity-60 py-2 text-center text-base font-semibold text-white hover:bg-opacity-100"
         >
           Register
         </router-link>

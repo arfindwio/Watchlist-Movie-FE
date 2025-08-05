@@ -2,6 +2,12 @@ export interface LoginPayload {
   email: string;
   password: string;
 }
+export interface RegisterPayload {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
 
 export interface User {
   id: number;
@@ -21,10 +27,17 @@ export interface LoginResponse {
   };
 }
 
-export interface ProfileResponse {
+export interface RegisterResponse {
   status: boolean;
   message: string;
   data: {
     user: User;
+    token: string;
   };
+}
+
+export interface ProfileResponse {
+  status: boolean;
+  message: string;
+  data: User;
 }
