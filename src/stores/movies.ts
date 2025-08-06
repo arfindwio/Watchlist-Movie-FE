@@ -2,10 +2,15 @@ import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
 // Services
-import { getMovies } from "../services/movies";
+import {
+  getMovies,
+  createwatchlist,
+  editMovieDetail,
+  deleteMovieDetail,
+} from "../services/movies";
 
 // Types
-import type { Movies } from "../types/movies";
+import type { CreateEditWatchlistPayload, Movies } from "../types/movies";
 
 export const useMoviesStore = defineStore("movies", () => {
   const movie = ref<Movies | null>(null);
@@ -34,6 +39,66 @@ export const useMoviesStore = defineStore("movies", () => {
       unwatched.value = data.data.unwatched;
     } catch (error) {
       throw error;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function createWatchlist(payload: CreateEditWatchlistPayload) {
+    loading.value = true;
+    error.value = null;
+    try {
+      await createwatchlist(payload);
+
+      await fetchMovies();
+
+      return true;
+    } catch (err: any) {
+      error.value =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Failed to create watchlist.";
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function editMovie(id: number, payload: CreateEditWatchlistPayload) {
+    loading.value = true;
+    error.value = null;
+    try {
+      const res = await editMovieDetail(id, payload);
+
+      movie.value = res.data.data;
+
+      return true;
+    } catch (err: any) {
+      error.value =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Failed to create watchlist.";
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function deleteMovie(id: number) {
+    loading.value = true;
+    error.value = null;
+    try {
+      await deleteMovieDetail(id);
+
+      await fetchMovies();
+
+      return true;
+    } catch (err: any) {
+      error.value =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Failed to delete movie.";
+      throw err;
     } finally {
       loading.value = false;
     }
@@ -102,5 +167,8 @@ export const useMoviesStore = defineStore("movies", () => {
     fetchMovies,
     setMovieDetail,
     searchMovies,
+    createWatchlist,
+    editMovie,
+    deleteMovie,
   };
 });

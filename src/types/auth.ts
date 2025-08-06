@@ -9,6 +9,17 @@ export interface RegisterPayload {
   password_confirmation: string;
 }
 
+export interface EditProfilePayload {
+  name: string;
+  photo: File | null;
+}
+
+export interface ChangePasswordPayload {
+  current_password: string;
+  new_password: string;
+  new_password_confirmation: string;
+}
+
 export interface User {
   id: number;
   name: string;
@@ -37,6 +48,12 @@ export interface RegisterResponse {
 }
 
 export interface ProfileResponse {
+  status: boolean;
+  message: string;
+  data: User;
+}
+
+export interface ChangePasswordResponse {
   status: boolean;
   message: string;
   data: User;

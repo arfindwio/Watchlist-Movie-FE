@@ -9,6 +9,7 @@ import { Icon } from "@iconify/vue";
 
 // Components
 import SideBar from "../components/sidebar/SideBar.vue";
+import EditMovieButton from "../components/button/EditMovieButton.vue";
 import Footer from "../components/footer/Footer.vue";
 
 // Images
@@ -83,16 +84,7 @@ const movie = computed(() => moviesStore.movie);
               >
                 Add to Watchlist
               </button>
-              <button
-                class="col-span-1 rounded bg-yellow-500 px-3 text-base font-bold text-black hover:bg-yellow-600"
-              >
-                <Icon
-                  icon="lucide:edit"
-                  width="30"
-                  height="30"
-                  class="mx-auto scale-75 text-white xl:scale-100"
-                />
-              </button>
+              <EditMovieButton />
               <button
                 class="col-span-1 rounded bg-red-700 px-3 text-base font-bold text-black hover:bg-red-800"
               >

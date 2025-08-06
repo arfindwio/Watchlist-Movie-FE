@@ -50,9 +50,9 @@ export async function getWatchedMovies(): Promise<WatchedMoviesResponse> {
 export async function getMovieDetail(
   id: number,
 ): Promise<{ data: MovieDetailResponse }> {
-  const response = await api.get(`/movies/${id}`);
+  const res = await api.get(`/movies/${id}`);
 
-  return response.data;
+  return res.data;
 }
 
 export async function editMovieDetail(
@@ -61,13 +61,13 @@ export async function editMovieDetail(
 ): Promise<{ data: CreateEditWatchlistResponse }> {
   const formData = createEditWatchlistFormData(payload);
 
-  const response = await api.post(`/movies/${id}`, formData, {
+  const res = await api.post(`/movies/${id}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 
-  return response.data;
+  return res;
 }
 
 export async function deleteMovieDetail(

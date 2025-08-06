@@ -1,7 +1,40 @@
 <script lang="ts" setup>
-// Images
+import { ref } from "vue";
+
+// Stores
+import { useAuthStore } from "../stores/auth";
+
+// Types
+import type { ChangePasswordPayload } from "../types/auth";
+
+// Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import Footer from "../components/footer/Footer.vue";
+
+const auth = useAuthStore();
+
+const oldPassword = ref("");
+const newPassword = ref("");
+const confirmNewPassword = ref("");
+const error = ref<string | null>(null);
+
+const handleChangePassword = async () => {
+  error.value = null;
+  try {
+    const payload: ChangePasswordPayload = {
+      current_password: oldPassword.value,
+      new_password: newPassword.value,
+      new_password_confirmation: confirmNewPassword.value,
+    };
+    await auth.changePasswordUser(payload);
+
+    oldPassword.value = "";
+    newPassword.value = "";
+    confirmNewPassword.value = "";
+  } catch (err: any) {
+    error.value = err?.response?.data?.message || "Login failed.";
+  }
+};
 </script>
 
 <template>
@@ -27,7 +60,10 @@ import Footer from "../components/footer/Footer.vue";
             Change Password
           </router-link>
         </div>
-        <form class="flex w-full flex-col items-center gap-6 p-4 sm:p-6 md:p-8">
+        <form
+          class="flex w-full flex-col items-center gap-6 p-4 sm:p-6 md:p-8"
+          @submit.prevent="handleChangePassword"
+        >
           <div class="flex w-full flex-col items-center gap-4">
             <div class="flex w-full flex-col sm:w-[50%] lg:w-[40%] xl:w-[30%]">
               <label
@@ -36,11 +72,12 @@ import Footer from "../components/footer/Footer.vue";
                 >Old Password <span class="text-red-500">*</span></label
               >
               <input
-                type="text"
+                type="password"
                 id="oldPassword"
                 name="oldPassword"
                 placeholder="Input Old Password"
                 class="w-full rounded border border-slate-200 bg-transparent px-2 py-1 text-slate-200"
+                v-model="oldPassword"
               />
             </div>
             <div class="flex w-full flex-col sm:w-[50%] lg:w-[40%] xl:w-[30%]">
@@ -50,11 +87,12 @@ import Footer from "../components/footer/Footer.vue";
                 >New Password <span class="text-red-500">*</span></label
               >
               <input
-                type="text"
+                type="password"
                 id="newPassword"
                 name="newPassword"
                 placeholder="Input New Password"
                 class="w-full rounded border border-slate-200 bg-transparent px-2 py-1 text-slate-200"
+                v-model="newPassword"
               />
             </div>
             <div class="flex w-full flex-col sm:w-[50%] lg:w-[40%] xl:w-[30%]">
@@ -64,18 +102,20 @@ import Footer from "../components/footer/Footer.vue";
                 >Confirm New Password <span class="text-red-500">*</span></label
               >
               <input
-                type="text"
+                type="password"
                 id="confirmNewPassword"
                 name="confirmNewPassword"
                 placeholder="Input Confirm New Password"
                 class="w-full rounded border border-slate-200 bg-transparent px-2 py-1 text-slate-200"
+                v-model="confirmNewPassword"
               />
             </div>
           </div>
           <button
+            type="submit"
             class="w-full rounded-md bg-[#F33F3F] py-1 text-center text-lg font-bold text-black hover:bg-red-600 sm:w-[50%] lg:w-[40%] xl:w-[30%]"
           >
-            Save
+            Change Password
           </button>
         </form>
       </section>

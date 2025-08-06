@@ -2,10 +2,23 @@ import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
 // Services
-import { login, register, fetchProfile } from "../services/auth";
+import {
+  login,
+  register,
+  fetchProfile,
+  editProfile,
+  deletePhotoProfile,
+  changePassword,
+} from "../services/auth";
 
 // Types
-import type { LoginPayload, RegisterPayload, User } from "../types/auth";
+import type {
+  LoginPayload,
+  RegisterPayload,
+  EditProfilePayload,
+  ChangePasswordPayload,
+  User,
+} from "../types/auth";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<User | null>(null);
@@ -54,6 +67,47 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = data.data;
   }
 
+  async function updateProfile(payload: EditProfilePayload) {
+    loading.value = true;
+    try {
+      const data = await editProfile(payload);
+      user.value = data.data.data;
+
+      return true;
+    } catch (error) {
+      throw error;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function removePhotoProfile() {
+    loading.value = true;
+    try {
+      const data = await deletePhotoProfile();
+      user.value = data.data.data;
+
+      return true;
+    } catch (error) {
+      throw error;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function changePasswordUser(payload: ChangePasswordPayload) {
+    loading.value = true;
+    try {
+      await changePassword(payload);
+
+      return true;
+    } catch (error) {
+      throw error;
+    } finally {
+      loading.value = false;
+    }
+  }
+
   function logout() {
     token.value = null;
     user.value = null;
@@ -79,5 +133,16 @@ export const useAuthStore = defineStore("auth", () => {
     }
   });
 
-  return { user, token, loading, loginUser, registerUser, getProfile, logout };
+  return {
+    user,
+    token,
+    loading,
+    loginUser,
+    registerUser,
+    getProfile,
+    updateProfile,
+    removePhotoProfile,
+    changePasswordUser,
+    logout,
+  };
 });

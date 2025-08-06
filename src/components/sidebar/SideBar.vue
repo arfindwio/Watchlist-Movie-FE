@@ -2,11 +2,14 @@
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-// Icons
-import { Icon } from "@iconify/vue";
-
 // Stores
 import { useAuthStore } from "../../stores/auth";
+
+// Components
+import CreateMovieButton from "../button/CreateMovieButton.vue";
+
+// Icons
+import { Icon } from "@iconify/vue";
 
 // Images
 import defaultPhoto from "../../assets/images/photo-profile.png";
@@ -21,6 +24,7 @@ const user = computed(() => authStore.user);
 const isActiveHome = computed(() => route.path === "/");
 const isActiveWatchlist = computed(() => route.path === "/watchlist");
 const isActiveWatched = computed(() => route.path === "/watched");
+const isMobileSidebarOpen = ref(false);
 
 const windowWidth = ref(window.innerWidth);
 const isBetween640and767 = () =>
@@ -43,6 +47,14 @@ function handleEnter() {
     router.push({ path: "/movies", query: { q: query.value } });
   }
 }
+
+function toggleMobileSidebar() {
+  isMobileSidebarOpen.value = !isMobileSidebarOpen.value;
+}
+
+function closeMobileSidebar() {
+  isMobileSidebarOpen.value = false;
+}
 </script>
 
 <template>
@@ -60,6 +72,7 @@ function handleEnter() {
       </router-link>
       <button
         class="hidden w-fit rounded-sm bg-slate-400 bg-opacity-30 p-1 sm:inline-block md:hidden"
+        @click="toggleMobileSidebar"
       >
         <Icon
           icon="ci:hamburger-md"
@@ -119,7 +132,8 @@ function handleEnter() {
         </component>
       </ul>
       <button
-        class="flex w-fit items-center justify-center gap-1 rounded bg-[#F33F3F] px-1 py-1 text-base font-semibold text-black hover:bg-red-600 md:w-full md:px-3 md:py-2"
+        type="button"
+        class="flex w-full items-center justify-center gap-1 rounded bg-[#F33F3F] px-1 py-1 text-base font-semibold text-black hover:bg-red-600 md:hidden"
       >
         <Icon
           icon="mdi:movie-plus"
@@ -129,6 +143,9 @@ function handleEnter() {
         />
         <p class="hidden text-sm font-bold md:block">Create Whitelist</p>
       </button>
+      <div class="hidden w-full md:block">
+        <CreateMovieButton />
+      </div>
 
       <router-link
         to="/profile"
@@ -147,7 +164,10 @@ function handleEnter() {
 
   <!-- Mobile View -->
   <div class="fixed z-10 flex w-full items-center bg-black px-3 py-4 sm:hidden">
-    <button class="rounded-sm bg-slate-400 bg-opacity-40 p-1">
+    <button
+      class="rounded-sm bg-slate-400 bg-opacity-40 p-1"
+      @click="toggleMobileSidebar"
+    >
       <Icon icon="ci:hamburger-md" width="20" height="20" class="text-white" />
     </button>
     <router-link
@@ -159,12 +179,18 @@ function handleEnter() {
   </div>
 
   <!-- Open SideBar Mobile-->
-  <!-- <div class="fixed z-10 h-screen w-screen bg-black bg-opacity-70">
+  <div
+    class="fixed z-10 h-screen w-screen bg-black bg-opacity-70 md:hidden"
+    v-if="isMobileSidebarOpen"
+  >
     <div class="fixed flex h-screen w-full max-w-xs flex-col bg-black">
       <div class="relative flex h-full w-full flex-col">
         <div class="flex w-full justify-between border-b border-slate-700 p-4">
           <h1 class="text-2xl font-bold text-[#e50914]">WATCHLISTS</h1>
-          <button class="rounded-sm bg-slate-400 bg-opacity-30 p-1">
+          <button
+            class="rounded-sm bg-slate-400 bg-opacity-30 p-1"
+            @click="closeMobileSidebar"
+          >
             <Icon
               icon="material-symbols:close-rounded"
               width="24"
@@ -174,9 +200,17 @@ function handleEnter() {
           </button>
         </div>
         <ul class="flex w-full flex-col gap-3 p-4">
+          <input
+            type="text"
+            placeholder="Search"
+            class="w-full rounded border border-slate-600 bg-transparent px-3 py-2 text-sm text-white md:inline lg:px-4 lg:py-2 lg:text-base"
+            v-model="query"
+            @keyup.enter="handleEnter"
+          />
           <router-link
             to="/"
             class="flex cursor-pointer gap-2 rounded bg-slate-500 bg-opacity-70 px-3 py-2 text-base text-white"
+            @click="closeMobileSidebar"
           >
             <Icon icon="bx:home" width="24" height="24" />
             Home
@@ -184,6 +218,7 @@ function handleEnter() {
           <router-link
             to="/watchlist"
             class="flex cursor-pointer gap-2 rounded px-3 py-2 text-base text-white hover:bg-slate-500 hover:bg-opacity-35"
+            @click="closeMobileSidebar"
           >
             <Icon icon="mdi:movie-star" width="24" height="24" />
             Watchlist
@@ -191,22 +226,39 @@ function handleEnter() {
           <router-link
             to="/watched"
             class="flex cursor-pointer gap-2 rounded px-3 py-2 text-base text-white hover:bg-slate-500 hover:bg-opacity-35"
+            @click="closeMobileSidebar"
           >
             <Icon icon="mdi:movie-check" width="24" height="24" />
             Watched
           </router-link>
+          <CreateMovieButton />
+          <!-- <button
+            class="flex w-full items-center justify-center gap-1 rounded bg-[#F33F3F] px-3 py-2 text-base font-semibold text-black hover:bg-red-600"
+          >
+            <Icon
+              icon="mdi:movie-plus"
+              width="24"
+              height="24"
+              class="md:scale-125 lg:scale-100"
+            />
+            <p class="text-sm font-bold md:block">Create Whitelist</p>
+          </button> -->
         </ul>
         <div class="absolute bottom-5 w-full p-4">
-          <button
+          <router-link
+            to="/profile"
             class="flex w-full items-center gap-3 truncate rounded border border-white bg-transparent px-3 py-2 text-start text-base uppercase text-slate-300"
           >
-            <p class="rounded-full bg-white p-1 text-black">
-              <Icon icon="ri:user-line" width="22" height="22" />
-            </p>
-            Guest
-          </button>
+            <img
+              :src="user?.photo ?? defaultPhoto"
+              loading="lazy"
+              alt="Photo Profile"
+              class="h-8 w-8"
+            />
+            {{ user?.name }}
+          </router-link>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
