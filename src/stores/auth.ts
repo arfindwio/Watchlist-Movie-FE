@@ -58,6 +58,9 @@ export const useAuthStore = defineStore("auth", () => {
     token.value = null;
     user.value = null;
     localStorage.removeItem("token");
+    localStorage.removeItem("movies_watched");
+    localStorage.removeItem("movies_unwatched");
+    localStorage.removeItem("movie_detail");
   }
 
   watch(token, (newToken) => {

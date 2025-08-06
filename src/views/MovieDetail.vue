@@ -1,10 +1,21 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+
+// Stores
+import { useMoviesStore } from "../stores/movies";
+
 // Icons
 import { Icon } from "@iconify/vue";
 
-// Images
+// Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import Footer from "../components/footer/Footer.vue";
+
+// Images
+import defaultPhoto from "../assets/images/poster.png";
+
+const moviesStore = useMoviesStore();
+const movie = computed(() => moviesStore.movie);
 </script>
 
 <template>
@@ -17,8 +28,8 @@ import Footer from "../components/footer/Footer.vue";
         class="flex flex-col items-start gap-2 pb-10 sm:flex-row sm:gap-6 xl:items-center"
       >
         <img
-          src="../assets/images/poster.png"
-          alt="Poster"
+          :src="movie?.poster ?? defaultPhoto"
+          :alt="movie?.title"
           class="aspect-video object-contain object-center sm:aspect-[3/4] sm:max-w-52 sm:object-cover md:max-w-64 lg:max-w-80"
         />
         <div class="flex w-full flex-col gap-5 sm:gap-6 xl:gap-10">
@@ -26,19 +37,18 @@ import Footer from "../components/footer/Footer.vue";
             <h5
               class="text-xl font-bold text-[#E1E1E1] sm:text-2xl md:text-3xl lg:text-4xl"
             >
-              Top Gun: Maverick
-              <span class="font-extralight text-[#E1E1E1]">(2022)</span>
+              {{ movie?.title }}
+              <span class="font-extralight text-[#E1E1E1]"
+                >({{ movie?.release_year }})</span
+              >
             </h5>
             <div class="flex w-fit flex-wrap items-center gap-2">
               <p
+                v-for="genre in movie?.genre?.split(',')"
+                :key="genre"
                 class="rounded-full border border-slate-500 bg-slate-800 px-2 py-[2px] text-xs text-slate-200 md:text-sm xl:text-base"
               >
-                Action
-              </p>
-              <p
-                class="rounded-full border border-slate-500 bg-slate-800 px-2 py-[2px] text-xs text-slate-200 md:text-sm xl:text-base"
-              >
-                Drama
+                {{ genre.trim() }}
               </p>
             </div>
           </div>
@@ -63,7 +73,9 @@ import Footer from "../components/footer/Footer.vue";
               class="flex flex-col justify-center gap-1 rounded-lg border border-[#A41B1B] bg-slate-700 px-3 py-2 text-center"
             >
               <p class="text-xl font-bold text-slate-200">Score</p>
-              <p class="text-4xl font-bold text-[#F33F3F]">100</p>
+              <p class="text-4xl font-bold text-[#F33F3F]">
+                {{ movie?.score }}
+              </p>
             </div>
             <div class="grid grid-cols-2 gap-2 xl:flex">
               <button

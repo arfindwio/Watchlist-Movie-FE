@@ -1,7 +1,7 @@
-import type { CreateWatchlistPayload } from "../types/movies";
+import type { CreateEditWatchlistPayload } from "../types/movies";
 
-export function createWatchlistFormData(
-  payload: CreateWatchlistPayload,
+export function createEditWatchlistFormData(
+  payload: CreateEditWatchlistPayload,
 ): FormData {
   const formData = new FormData();
 
