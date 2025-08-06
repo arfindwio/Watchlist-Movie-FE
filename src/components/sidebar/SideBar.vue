@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 // Icons
 import { Icon } from "@iconify/vue";
@@ -13,6 +13,9 @@ import defaultPhoto from "../../assets/images/photo-profile.png";
 
 const route = useRoute();
 const authStore = useAuthStore();
+const router = useRouter();
+
+const query = ref("");
 
 const user = computed(() => authStore.user);
 const isActiveHome = computed(() => route.path === "/");
@@ -34,6 +37,12 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", updateWidth);
 });
+
+function handleEnter() {
+  if (query.value.trim() !== "") {
+    router.push({ path: "/movies", query: { q: query.value } });
+  }
+}
 </script>
 
 <template>
@@ -62,7 +71,9 @@ onUnmounted(() => {
       <input
         type="text"
         placeholder="Search"
-        class="hidden w-full rounded border border-slate-600 bg-transparent px-3 py-2 text-sm focus:text-white md:inline lg:px-4 lg:py-2 lg:text-base"
+        class="hidden w-full rounded border border-slate-600 bg-transparent px-3 py-2 text-sm text-white md:inline lg:px-4 lg:py-2 lg:text-base"
+        v-model="query"
+        @keyup.enter="handleEnter"
       />
       <ul
         class="flex w-full flex-col items-center gap-2 md:items-start md:gap-3"

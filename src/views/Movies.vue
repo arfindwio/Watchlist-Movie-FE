@@ -1,11 +1,36 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
+// Stores
+import { useMoviesStore } from "../stores/movies";
+
 // Icons
 import { Icon } from "@iconify/vue";
 
-// Images
+// Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import MovieCard from "../components/card/MovieCard.vue";
 import Footer from "../components/footer/Footer.vue";
+
+const route = useRoute();
+const moviesSore = useMoviesStore();
+
+const query = computed(() => (route.query.q as string) || "");
+
+const filteredWatched = computed(() => {
+  if (!query.value) return moviesSore.watched;
+  return moviesSore.watched.filter((movie) =>
+    movie.title.toLowerCase().includes(query.value.toLowerCase()),
+  );
+});
+
+const filteredUnwatched = computed(() => {
+  if (!query.value) return moviesSore.unwatched;
+  return moviesSore.unwatched.filter((movie) =>
+    movie.title.toLowerCase().includes(query.value.toLowerCase()),
+  );
+});
 </script>
 
 <template>
@@ -17,21 +42,21 @@ import Footer from "../components/footer/Footer.vue";
       <section class="flex flex-col gap-3 sm:gap-6">
         <h5 class="text-xl font-bold text-white sm:text-3xl">Movies</h5>
         <p class="mt-1 text-base font-medium text-white">
-          Result for <span class="text-[#F33F3F]">"aa"</span>
+          Result for <span class="text-[#F33F3F]">"{{ query }}"</span>
         </p>
         <div
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4 md:gap-7 lg:grid-cols-5 lg:gap-8"
         >
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+          <MovieCard
+            v-for="movie in filteredWatched"
+            :key="movie.id"
+            :movie="movie"
+          />
+          <MovieCard
+            v-for="movie in filteredUnwatched"
+            :key="movie.id"
+            :movie="movie"
+          />
         </div>
       </section>
 

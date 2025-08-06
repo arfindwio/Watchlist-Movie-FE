@@ -1,4 +1,4 @@
-export interface CreateWatchlistPayload {
+export interface CreateEditWatchlistPayload {
   title: string;
   poster: string;
   release_year: number;
@@ -20,12 +20,6 @@ export interface Movies {
   updated_at: string;
 }
 
-export interface CreateWatchlistResponse {
-  status: boolean;
-  message: string;
-  data: Movies;
-}
-
 export interface MoviesListResponse {
   status: boolean;
   message: string;
@@ -33,4 +27,33 @@ export interface MoviesListResponse {
     watched: Movies[];
     unwatched: Movies[];
   };
+}
+
+export interface CreateEditWatchlistResponse {
+  status: boolean;
+  message: string;
+  data: Movies;
+}
+
+export interface WatchedMoviesResponse {
+  status: boolean;
+  message: string;
+  data: Movies[];
+}
+export interface UnatchedMoviesResponse {
+  status: boolean;
+  message: string;
+  data: Movies[];
+}
+
+export interface MovieDetailResponse {
+  status: boolean;
+  message: string;
+  data: Movies;
+}
+
+export interface DeleteMovieResponse {
+  status: boolean;
+  message: string;
+  data: null;
 }

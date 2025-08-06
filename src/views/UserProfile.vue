@@ -1,10 +1,19 @@
 <script lang="ts" setup>
+// Stores
+import { useAuthStore } from "../stores/auth";
+
 // Icons
 import { Icon } from "@iconify/vue";
 
-// Images
+// Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import Footer from "../components/footer/Footer.vue";
+
+const authStore = useAuthStore();
+
+function handleLogout() {
+  authStore.logout();
+}
 </script>
 
 <template>
@@ -92,11 +101,13 @@ import Footer from "../components/footer/Footer.vue";
           >
             Save
           </button>
-          <button
+          <router-link
+            to="/login"
             class="w-full rounded-md border border-[#F33F3F] py-1 text-center text-lg font-bold text-[#F33F3F] hover:bg-[#F33F3F] hover:text-black sm:w-[50%] lg:w-[40%] xl:w-[30%]"
+            @click="handleLogout"
           >
             Logout
-          </button>
+          </router-link>
         </form>
       </section>
 

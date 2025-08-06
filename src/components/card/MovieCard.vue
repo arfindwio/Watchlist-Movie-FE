@@ -1,15 +1,26 @@
 <script lang="ts" setup>
+// Stores
+import { useMoviesStore } from "../../stores/movies";
+
+// Types
 import type { Movies } from "../../types/movies";
 
 // Icons
 import { Icon } from "@iconify/vue";
 
 const props = defineProps<{ movie: Movies }>();
+
+const moviesStore = useMoviesStore();
+
+function handleClick() {
+  moviesStore.setMovieDetail(props.movie);
+}
 </script>
 
 <template>
   <router-link
-    to="/movie-detail"
+    :to="'/movie-detail'"
+    @click="handleClick"
     class="relative col-span-1 flex flex-col overflow-hidden rounded-md bg-slate-600"
   >
     <img
