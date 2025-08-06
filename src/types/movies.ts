@@ -1,9 +1,9 @@
 export interface CreateEditWatchlistPayload {
   title: string;
-  poster: string;
+  poster: File | null;
   release_year: number;
   genre: string;
-  watched: boolean;
+  watched: number;
   score: number;
 }
 

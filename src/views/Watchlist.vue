@@ -28,6 +28,29 @@ const unwatched = computed(() => moviesStore.unwatched);
           Watchlist Movies
         </h5>
         <div
+          class="flex w-full flex-col items-center justify-center gap-3 pt-10 sm:gap-6 md:gap-10"
+          v-if="unwatched.length === 0"
+        >
+          <Icon
+            icon="streamline-kameleon-color:movie-film"
+            width="100"
+            height="100"
+            class="scale-100 sm:scale-125 md:scale-150"
+          />
+          <div class="flex flex-col text-center">
+            <h5
+              class="text-lg font-bold text-[#e50914] sm:text-xl md:text-2xl lg:text-3xl"
+            >
+              Your watchlist is empty.
+            </h5>
+            <p
+              class="text-base font-medium text-white sm:text-lg md:text-xl lg:text-2xl"
+            >
+              Start adding movies you want to watch!
+            </p>
+          </div>
+        </div>
+        <div
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4 md:gap-7 lg:grid-cols-5 lg:gap-8"
           v-if="unwatched.length > 0"
         >
@@ -40,7 +63,7 @@ const unwatched = computed(() => moviesStore.unwatched);
       </section>
 
       <section
-        class="flex flex-col justify-center gap-3 pb-10 pt-4 lg:flex-row lg:justify-between lg:gap-6 lg:pb-16"
+        class="flex flex-col justify-center gap-3 pt-4 lg:flex-row lg:justify-between lg:gap-6"
         v-if="unwatched.length > 0"
       >
         <p
