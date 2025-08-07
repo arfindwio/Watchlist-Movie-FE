@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
 
 // Stores
 import { useMoviesStore } from "../stores/movies";
@@ -7,14 +7,27 @@ import { useMoviesStore } from "../stores/movies";
 // Icons
 import { Icon } from "@iconify/vue";
 
-// Images
+// Components
 import SideBar from "../components/sidebar/SideBar.vue";
 import MovieCard from "../components/card/MovieCard.vue";
+import pagination from "../components/pagination/pagination.vue";
 import Footer from "../components/footer/Footer.vue";
 
 const moviesStore = useMoviesStore();
 
 const unwatched = computed(() => moviesStore.unwatched);
+
+const currentPage = ref(1);
+const itemsPerPage = ref(15);
+
+const totalPages = computed(() => {
+  return Math.ceil(unwatched.value.length / itemsPerPage.value);
+});
+
+const paginatedMovies = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  return unwatched.value.slice(start, start + itemsPerPage.value);
+});
 </script>
 
 <template>
@@ -55,67 +68,27 @@ const unwatched = computed(() => moviesStore.unwatched);
           v-if="unwatched.length > 0"
         >
           <MovieCard
-            v-for="movie in unwatched"
+            v-for="movie in paginatedMovies"
             :key="movie.id"
             :movie="movie"
           />
         </div>
       </section>
 
-      <section
-        class="flex flex-col justify-center gap-3 pt-4 lg:flex-row lg:justify-between lg:gap-6"
+      <pagination
         v-if="unwatched.length > 0"
-      >
-        <p
-          class="flex items-center justify-center gap-2 text-base font-normal text-slate-300"
-        >
-          Item per page
-          <select class="border border-slate-600 bg-transparent text-base">
-            <option value="15">15</option>
-            <option value="20">20</option>
-          </select>
-          of 200
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-1 sm:gap-4">
-          <button
-            class="flex scale-90 items-center gap-2 text-slate-300 sm:scale-100"
-          >
-            <Icon icon="si:arrow-left-duotone" width="30" height="30" />
-            Previous
-          </button>
-          <button
-            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
-          >
-            1
-          </button>
-          <p
-            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
-          >
-            ...
-          </p>
-          <button
-            class="scale-90 rounded-lg bg-slate-500 bg-opacity-70 px-4 py-2 text-base font-medium text-white sm:scale-100"
-          >
-            3
-          </button>
-          <p
-            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
-          >
-            ...
-          </p>
-          <button
-            class="scale-90 rounded-lg px-4 py-2 text-base font-medium text-slate-300 hover:bg-slate-500 hover:bg-opacity-35 sm:scale-100"
-          >
-            9
-          </button>
-          <button
-            class="flex scale-90 items-center gap-2 text-slate-300 sm:scale-100"
-          >
-            Next
-            <Icon icon="si:arrow-right-duotone" width="30" height="30" />
-          </button>
-        </div>
-      </section>
+        :currentPage="currentPage"
+        :totalPages="totalPages"
+        :itemsPerPage="itemsPerPage"
+        :totalItems="unwatched.length"
+        @update:page="(page) => (currentPage = page)"
+        @update:itemsPerPage="
+          (count) => {
+            itemsPerPage = count;
+            currentPage = 1;
+          }
+        "
+      />
 
       <Footer />
     </div>

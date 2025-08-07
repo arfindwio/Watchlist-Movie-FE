@@ -72,6 +72,8 @@ export const useMoviesStore = defineStore("movies", () => {
 
       movie.value = res.data.data;
 
+      await fetchMovies();
+
       return true;
     } catch (err: any) {
       error.value =
@@ -91,6 +93,8 @@ export const useMoviesStore = defineStore("movies", () => {
       await deleteMovieDetail(id);
 
       await fetchMovies();
+
+      movie.value = null;
 
       return true;
     } catch (err: any) {
