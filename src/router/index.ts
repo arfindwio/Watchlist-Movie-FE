@@ -1,15 +1,52 @@
 import { createRouter, createWebHistory } from "vue-router";
+
+// Views
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
+import Watchlist from "../views/Watchlist.vue";
+import Watched from "../views/Watched.vue";
+import Movies from "../views/Movies.vue";
+import MovieDetail from "../views/MovieDetail.vue";
+import UserProfile from "../views/UserProfile.vue";
+import UserChangePassword from "../views/UserChangePassword.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
-  { path: "/about", name: "About", component: About },
+  { path: "/login", name: "Login", component: Login },
+  { path: "/register", name: "Register", component: Register },
+  { path: "/watchlist", name: "Watchlist Movie", component: Watchlist },
+  { path: "/watched", name: "Watched Movie", component: Watched },
+  { path: "/movies", name: "Search Movies", component: Movies },
+  { path: "/movie-detail", name: "Movie Detail", component: MovieDetail },
+  { path: "/profile", name: "User Profile", component: UserProfile },
+  {
+    path: "/change-password",
+    name: "User Change Password",
+    component: UserChangePassword,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem("token");
+  const publicPages = ["/login", "/register"];
+  const authRequired = !publicPages.includes(to.path);
+  const isLoggedIn = !!token;
+
+  if (authRequired && !isLoggedIn) {
+    return next("/login");
+  }
+
+  if (isLoggedIn && publicPages.includes(to.path)) {
+    return next("/");
+  }
+
+  next();
 });
 
 export default router;
