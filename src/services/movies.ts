@@ -73,7 +73,7 @@ export async function editMovieDetail(
 export async function deleteMovieDetail(
   id: number,
 ): Promise<{ data: DeleteMovieResponse }> {
-  const response = await api.delete(`/movies/${id}`);
+  const res = await api.delete(`/movies/${id}`);
 
-  return response.data;
+  return res;
 }
