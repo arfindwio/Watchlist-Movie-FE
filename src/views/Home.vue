@@ -42,8 +42,8 @@ onMounted(() => {
           </p>
           <p class="text-base font-normal text-slate-200 sm:gap-2 sm:text-lg">
             Just click
-            <a href="#" class="text-wrap font-bold underline"
-              >Create Watchlist</a
+            <span href="#" class="text-wrap font-bold underline"
+              >Create Watchlist</span
             >, click poster to see more details or
             <Icon
               icon="mdi:movie-check"
@@ -100,7 +100,7 @@ onMounted(() => {
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 xl:grid-cols-6 xl:gap-8"
         >
           <MovieCard
-            v-for="movie in unwatched.slice(0, 8)"
+            v-for="movie in unwatched.slice(0, 6)"
             :key="movie.id"
             :movie="movie"
           />
@@ -126,7 +126,11 @@ onMounted(() => {
         <div
           class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 xl:grid-cols-6 xl:gap-8"
         >
-          <MovieCard v-for="movie in watched" :key="movie.id" :movie="movie" />
+          <MovieCard
+            v-for="movie in watched.slice(0, 6)"
+            :key="movie.id"
+            :movie="movie"
+          />
         </div>
       </section>
 

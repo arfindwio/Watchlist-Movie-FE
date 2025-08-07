@@ -131,9 +131,9 @@ function closeMobileSidebar() {
           <p class="hidden md:block">Watched</p>
         </component>
       </ul>
-      <button
+      <div
         type="button"
-        class="flex w-full items-center justify-center gap-1 rounded bg-[#F33F3F] px-1 py-1 text-base font-semibold text-black hover:bg-red-600 md:hidden"
+        class="flex w-fit items-center justify-center gap-1 rounded bg-[#F33F3F] px-1 py-1 text-base font-semibold text-black hover:bg-red-600 md:hidden"
       >
         <Icon
           icon="mdi:movie-plus"
@@ -142,7 +142,7 @@ function closeMobileSidebar() {
           class="md:scale-125 lg:scale-100"
         />
         <p class="hidden text-sm font-bold md:block">Create Whitelist</p>
-      </button>
+      </div>
       <div class="hidden w-full md:block">
         <CreateMovieButton />
       </div>

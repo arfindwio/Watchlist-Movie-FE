@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { ref, computed, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 
 // Stores
 import { useMoviesStore } from "../stores/movies";
@@ -9,14 +10,40 @@ import { Icon } from "@iconify/vue";
 
 // Components
 import SideBar from "../components/sidebar/SideBar.vue";
+import WatchedButton from "../components/button/WatchedButton.vue";
 import EditMovieButton from "../components/button/EditMovieButton.vue";
 import Footer from "../components/footer/Footer.vue";
 
 // Images
 import defaultPhoto from "../assets/images/poster.png";
 
+const router = useRouter();
 const moviesStore = useMoviesStore();
+
 const movie = computed(() => moviesStore.movie);
+
+const error = ref<string | null>(null);
+
+watchEffect(() => {
+  if (!movie.value) {
+    router.push("/");
+  }
+});
+
+async function handleDeleteMovie() {
+  error.value = null;
+
+  if (!movie.value) return;
+
+  try {
+    await moviesStore.deleteMovie(movie?.value?.id);
+
+    router.push("/");
+  } catch (err: any) {
+    error.value =
+      err?.response?.data?.message || err.message || "Unknown error occurred.";
+  }
+}
 </script>
 
 <template>
@@ -79,14 +106,12 @@ const movie = computed(() => moviesStore.movie);
               </p>
             </div>
             <div class="grid grid-cols-2 gap-2 xl:flex">
-              <button
-                class="col-span-2 rounded bg-[#F33F3F] px-3 py-1 text-sm font-bold text-black hover:bg-red-600 sm:py-2 lg:px-6 lg:py-4 lg:text-base"
-              >
-                Add to Watchlist
-              </button>
+              <WatchedButton />
               <EditMovieButton />
               <button
+                type="button"
                 class="col-span-1 rounded bg-red-700 px-3 text-base font-bold text-black hover:bg-red-800"
+                @click="handleDeleteMovie"
               >
                 <Icon
                   icon="tabler:trash"
