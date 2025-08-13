@@ -21,10 +21,7 @@ Aplikasi web sederhana untuk mencatat film yang ingin tonton (watchlist) dan men
 
 Desain UI/UX aplikasi ini terinspirasi dari karya berikut:
 
-- **🎨 [Movie Streaming Mobile App Design by Sajon](https://dribbble.com/shots/15395774-Movie-Streaming-Mobile-App-Design)**  
-  🔗 Source: Dribbble  
-  ✏️ Desainer: Sajon  
-  📄 _Desain digunakan hanya sebagai referensi tampilan dan tata letak untuk tujuan pembelajaran._
+**🎨 [Movie Watchlist Project by Michael Epelboim](https://www.figma.com/community/file/1121715218417063090/movie-watchlist-project)**
 
 ---
 
@@ -56,9 +53,3 @@ VITE_API_URL=http://localhost:3000
 # Jalankan development server
 npm run dev
 ```
-
-## 🖼️ UI/UX Design Credit
-
-Desain UI/UX aplikasi ini terinspirasi dari karya berikut:
-
-**🎨 [Movie Watchlist Project by Michael Epelboim](https://www.figma.com/community/file/1121715218417063090/movie-watchlist-project)**
